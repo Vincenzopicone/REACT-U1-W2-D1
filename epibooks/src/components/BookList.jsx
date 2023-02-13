@@ -7,20 +7,27 @@ import {Container, Col, Form, Row } from 'react-bootstrap'
 class BookList extends Component {
   state = {
     searchQuery: '',
-    selected: true,
-    asin:""
+    bookSelected: ""
   }
 
+  sendData = (value) => {
+    this.props.parentCallback(value)
+  }
+  
   setSelected = (value) => {
-    this.setState(
-      {selected:value})
+    this.setState({ bookSelected: value });
+  };
+
+  componentDidUpdate = (prevProps, prevState ) => {
+    if (prevState.bookSelected !== this.state.bookSelected)  {
+      this.sendData(this.state.bookSelected)
+    } 
   }
 
 
   render() {
     return (
       <>
-       <Container md={6}>
         <Row>
           <Col>
             <Form.Group>
@@ -43,14 +50,12 @@ class BookList extends Component {
               <Col xs={12} md={4} key={b.asin}>
                 <SingleBook 
                 book={b}
+                asin={b.asin}
+                parentCallBack={this.setSelected}
                  />
               </Col>
             ))}
         </Row>
-        </Container>
-        <Container md={6}>
-        <CommentArea asin={this.state.asin}/>
-        </Container>
       </>
     )
   }
