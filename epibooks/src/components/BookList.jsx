@@ -1,8 +1,8 @@
 import { Component } from 'react'
-import CommentArea from './CommentArea'
+/* import CommentArea from './CommentArea' */
 import SingleBook from './SingleBook'
 
-import {Container, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
 
 class BookList extends Component {
   state = {
@@ -52,6 +52,7 @@ class BookList extends Component {
                 book={b}
                 asin={b.asin}
                 parentCallBack={this.setSelected}
+                setSelectedBookAsin = {this.state.bookSelected}
                  />
               </Col>
             ))}
